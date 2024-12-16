@@ -18,8 +18,12 @@ public class MainController {
 
 //        User user1 = new User("test", "test", "test@gmail.com");
         DatabaseWorker worker = new DatabaseWorker();
-        User user = worker.Select("test123");
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        User user = worker.Select("test1233");
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } else {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
     }
 
     @PostMapping("/api/main")
@@ -34,10 +38,11 @@ public class MainController {
     @PostMapping("/api/main/map")
     public ResponseEntity<?> POST_main_map(@RequestBody Map<String, @NotEmpty String> map) {
 
+        DatabaseWorker worker = new DatabaseWorker();
         User user = new User(map.get("login"), map.get("password"), map.get("email"));
 
-        if (user.getLogin() != null && user.getPassword() != null) {
-            return new ResponseEntity<>(user, HttpStatus.OK);
+        if (user.getLogin() != null && user.getPassword() != null && user.getEmail() != null) {
+            return new ResponseEntity<>(worker.Insert(user), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
