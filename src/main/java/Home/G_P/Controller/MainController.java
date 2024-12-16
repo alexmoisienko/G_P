@@ -29,9 +29,7 @@ public class MainController {
     @PostMapping("/api/main")
     public ResponseEntity<User> POST_main(@Valid @RequestBody User user) {
 
-        User user1 = new User(user.getLogin(), user.getPassword(), user.getEmail());
-
-        return new ResponseEntity<>(user1, HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
 
     }
 

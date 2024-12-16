@@ -3,7 +3,7 @@ package Home.G_P;
 import java.sql.*;
 
 public class DatabaseWorker {
-    private final String url = "jdbc:postgresql://localhost:5432/admin";
+    private final String url = "jdbc:postgresql://192.168.43.252:5432/admin";
     private final String username = "admin";
     private final String password = "123456";
 
