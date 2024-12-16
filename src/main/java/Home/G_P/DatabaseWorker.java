@@ -7,46 +7,48 @@ public class DatabaseWorker {
     private final String username = "admin";
     private final String password = "123456";
 
-    public User Select(String login) {
+    public User Select(String login) throws Exception {
 
         String query = "SELECT u.login, u.password, u.date, e.email\nFROM users u\nJOIN emails e ON\nu.login = e.login\nWHERE u.login = '" + login + "'";
-        Connection conn = null;
-        Statement statement = null;
-        try {
-            conn = DriverManager.getConnection(url, username, password);
-            statement = conn.createStatement();
+//        Connection conn = null;
+//        Statement statement = null;
+//        try {
+            Connection conn = DriverManager.getConnection(url, username, password);
+            Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
+            resultSet.next();
+//            while (resultSet.next()) {
+            User user = new User(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(4)
+            );
+            user.setDate(resultSet.getDate(3));
 
-            while (resultSet.next()) {
-                User user = new User(
-                        resultSet.getString(1),
-                        resultSet.getString(2),
-//                        resultSet.getDate(3),
-                        resultSet.getString(4)
-                );
-                user.setDate(resultSet.getDate(3));
-                return user;
-            }
+            statement.close();
+            conn.close();
 
-        } catch (Exception ex) {
+            return user;
 
-            System.out.println("Connection failed");
-            System.out.println(ex);
-            return null;
+//            }
 
-        }
-        finally {
+//        } catch (Exception ex) {
+//
+//            throw new Exception(ex);
+//
+//        }
+//        finally {
+//
+//            if (statement != null) {
+//                try { statement.close(); } catch (Exception ex) { System.out.println(ex); }
+//            }
+//            if (conn != null) {
+//                try { conn.close(); } catch (Exception ex) { System.out.println(ex); }
+//            }
+//
+//        }
 
-            if (statement != null) {
-                try { statement.close(); } catch (Exception ex) { System.out.println(ex); }
-            }
-            if (conn != null) {
-                try { conn.close(); } catch (Exception ex) { System.out.println(ex); }
-            }
-
-        }
-
-        return null;
+//        return null;
     }
 
 

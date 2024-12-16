@@ -17,7 +17,8 @@ public class User {
     @NotEmpty
     private String password;
     private Date date;
-
+    @NotNull
+    @NotEmpty
     private String email;
 
     public String toString() {
