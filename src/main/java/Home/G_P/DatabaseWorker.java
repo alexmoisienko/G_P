@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 @Component
@@ -44,7 +45,7 @@ public class DatabaseWorker {
 
     public String Insert(User user) {
         String query = "INSERT INTO users (login, password, date) Values (?, ?, ?); INSERT INTO emails (login, email) Values (?, ?)";
-        LocalDateTime localdatetime = LocalDateTime.now();
+        LocalDateTime localdatetime = LocalDateTime.now(ZoneId.of("Europe/Moscow"));
         try (
                 Connection conn = DriverManager.getConnection(url, username, password);
                 PreparedStatement preparedStatement = conn.prepareStatement(query)
