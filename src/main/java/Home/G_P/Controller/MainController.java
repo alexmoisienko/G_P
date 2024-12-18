@@ -40,4 +40,7 @@ public class MainController  {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("api/main/files")
+    public ResponseEntity<?> GET_files(@RequestParam ) {}
 }
