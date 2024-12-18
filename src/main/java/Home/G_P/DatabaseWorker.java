@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 @Component
 public class DatabaseWorker {
-    private final String url = "jdbc:postgresql://192.168.1.3:5432/admin";
+    private final String url = "jdbc:postgresql://192.168.43.252:5432/admin";
     private final String username = "admin";
     private final String password = "123456";
 
