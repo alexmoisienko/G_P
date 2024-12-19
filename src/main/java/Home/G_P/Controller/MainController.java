@@ -1,6 +1,7 @@
 package Home.G_P.Controller;
 
 import Home.G_P.DatabaseWorker;
+import Home.G_P.FileWorker;
 import Home.G_P.User;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
@@ -16,12 +17,17 @@ public class MainController  {
     @Autowired
     DatabaseWorker worker;
 
+    @Autowired
+    FileWorker fileWorker;
+
     @GetMapping("/api/main")
     public ResponseEntity<?> GET_main(@RequestParam String login) {
         try {
             User user = worker.Select(login);
+            fileWorker.Write(user);
             return new ResponseEntity<>(user, HttpStatus.OK);
         } catch (Exception ex) {
+            System.out.println(ex.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -41,6 +47,8 @@ public class MainController  {
         }
     }
 
-    @GetMapping("api/main/files")
-    public ResponseEntity<?> GET_files(@RequestParam ) {}
+    @GetMapping("api/main/random_line")
+    public ResponseEntity<?> GET_files() throws Exception {
+        return new ResponseEntity<>(fileWorker.Read(), HttpStatus.OK);
+    }
 }

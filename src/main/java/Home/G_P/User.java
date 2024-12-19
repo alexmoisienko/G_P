@@ -20,7 +20,7 @@ public class User {
     private String date;
 
     public String toString() {
-            return "{login='" + login + "', password='" + password + "', date='" + date + "', email='" + email + "'}";
+            return "{login: '" + login + "', password: '" + password + "', date: '" + date + "', email: '" + email + "'}";
     }
 
     public User() {}
